@@ -1,25 +1,30 @@
-// Copyright 2023 ESRI
-//
-// All rights reserved under the copyright laws of the United States
-// and applicable international laws, treaties, and conventions.
-//
-// You may freely redistribute and use this sample code, with or
-// without modification, provided you include the original copyright
-// notice and use restrictions.
-//
-// See the Sample code usage restrictions document for further information.
-//
+// [WriteFile Name=ArcGISTest, Category=Layers]
+// [Legal]
+// Copyright 2019 Esri.
 
-#ifndef ARCGISTEST_H
-#define ARCGISTEST_H
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+// http://www.apache.org/licenses/LICENSE-2.0
+
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+// [Legal]
+
+#ifndef DISPLAYWFSLAYER_H
+#define DISPLAYWFSLAYER_H
 
 namespace Esri
 {
-namespace ArcGISRuntime
-{
-class Map;
-class MapQuickView;
-}
+    namespace ArcGISRuntime
+    {
+        class Map;
+        class MapQuickView;
+        class WfsFeatureTable;
+    }
 }
 
 #include <QObject>
@@ -32,17 +37,21 @@ class ArcGISTest : public QObject
 
 public:
     explicit ArcGISTest(QObject* parent = nullptr);
-    ~ArcGISTest() override;
+    ~ArcGISTest();
 
-signals:
-    void mapViewChanged();
+    static void init();
+
+    signals:
+            void mapViewChanged();
 
 private:
     Esri::ArcGISRuntime::MapQuickView* mapView() const;
     void setMapView(Esri::ArcGISRuntime::MapQuickView* mapView);
+    void populateWfsFeatureTable();
 
     Esri::ArcGISRuntime::Map* m_map = nullptr;
     Esri::ArcGISRuntime::MapQuickView* m_mapView = nullptr;
+    Esri::ArcGISRuntime::WfsFeatureTable* m_wfsFeatureTable = nullptr;
 };
 
-#endif // ARCGISTEST_H
+#endif // DISPLAYWFSLAYER_H
